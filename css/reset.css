@@ -1,0 +1,176 @@
+/* ============================================================
+   reset.css — Modern CSS Reset
+   Βασισμένο στο Josh Comeau's reset + extras για media apps
+   ============================================================ */
+
+/* 1. Box-sizing σε όλα */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* 2. Remove default margins & padding */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+/* 3. HTML root */
+html {
+  /* Smooth scrolling — μόνο αν ο χρήστης δεν έχει ορίσει reduced motion */
+  scroll-behavior: smooth;
+  /* Prevent font scaling σε iOS landscape */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 4. Body defaults */
+body {
+  /* Καλύτερο font rendering */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal overflow */
+  overflow-x: hidden;
+  /* Minimum height */
+  min-height: 100vh;
+  /* Improve text rendering */
+  text-rendering: optimizeLegibility;
+}
+
+/* 5. Media elements — block by default, constrained */
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+/* 6. Inherit fonts για form elements */
+input, button, textarea, select, optgroup {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* 7. Remove built-in form styling */
+input, textarea, select {
+  border: none;
+  background: none;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* 8. Buttons */
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  /* Reset button font */
+  font: inherit;
+  color: inherit;
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 9. Links */
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* 10. Lists */
+ul, ol {
+  list-style: none;
+}
+
+/* 11. Headings — no bold by default, θα οριστεί μέσω classes */
+h1, h2, h3, h4, h5, h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/* 12. Avoid text overflows */
+p, h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* 13. Tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* 14. Hidden attribute */
+[hidden] {
+  display: none !important;
+}
+
+/* 15. Fieldset */
+fieldset {
+  border: none;
+  min-width: 0;
+}
+
+/* 16. Details / Summary */
+details > summary {
+  cursor: pointer;
+  list-style: none;
+}
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* 17. Horizontal rule */
+hr {
+  border: none;
+  border-top: 1px solid currentColor;
+  opacity: 0.15;
+}
+
+/* 18. Reduced motion — απενεργοποίησε animations αν ο χρήστης το έχει ορίσει */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* 19. Focus visible — για accessibility */
+:focus-visible {
+  outline: 2px solid var(--accent, #e8a020);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* 20. Selection color */
+::selection {
+  background: var(--accent-dim, rgba(232,160,32,0.25));
+  color: var(--text-primary, #f0eff8);
+}
+
+/* 21. Scrollbar styling (Chromium) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.12);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.22);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.12) transparent;
+}
