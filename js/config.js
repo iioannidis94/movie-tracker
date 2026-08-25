@@ -10,7 +10,7 @@
 const CONFIG = {
 
   // ── TMDB ──────────────────────────────────────────
-  TMDB_API_KEY:  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNTdhNGVmNmJjODVkMDQwOGM5MjZlMTUyZjMyNjliYiIsIm5iZiI6MTc4NzY0NzQxMi44NjYsInN1YiI6IjZhOGQ1NWI0YWExN2IzYjgxNGU1NWRhMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i_nJCgKBVdvXZjoRXXkOHQPBahJkbAT-b3VgM8FukWA',   // ← αντικατέστησε
+  TMDB_API_KEY:  'e57a4ef6bc85d0408c926e152f3269bb',   // ← αντικατέστησε
   TMDB_BASE_URL: 'https://api.themoviedb.org/3',
   TMDB_IMAGE_BASE: 'https://image.tmdb.org/t/p/',
 
