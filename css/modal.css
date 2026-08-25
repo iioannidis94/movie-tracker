@@ -293,3 +293,29 @@
   .modal-poster { width: 90px; }
   .episode-row { grid-template-columns: 30px 1fr auto; }
 }
+
+/* ── WATCH PROVIDERS ─────────────────────────────── */
+.providers-section {
+  margin-top: var(--sp-4);
+}
+.providers-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: var(--sp-2);
+}
+.providers-list {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+}
+.provider-logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+}
+
+
