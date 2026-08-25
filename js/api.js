@@ -136,12 +136,16 @@ const API = (() => {
     };
   }
 
-  // ── Details ───────────────────────────────────────
+ // ── Details ───────────────────────────────────────
   async function getMovieDetails(id) {
     const [details, credits] = await Promise.all([
-      fetchTMDB(`/movie/${id}`, { append_to_response: 'videos' }),
+      fetchTMDB(`/movie/${id}`, { append_to_response: 'videos,watch/providers' }), // Προσθήκη watch/providers
       fetchTMDB(`/movie/${id}/credits`),
     ]);
+    
+    // Ψάχνουμε τις πλατφόρμες streaming (flatrate) για Ελλάδα (GR)
+    const providersGR = details['watch/providers']?.results?.GR?.flatrate || [];
+
     return {
       ...normalise({ ...details, media_type: 'movie' }),
       tagline:    details.tagline || '',
@@ -154,14 +158,23 @@ const API = (() => {
         character: p.character,
         photo:     faceUrl(p.profile_path),
       })),
+      // Προσθήκη των providers στο object
+      providers:  providersGR.map(p => ({
+        name: p.provider_name,
+        logo: posterUrl(p.logo_path, 'w92') // Χρησιμοποιούμε μικρό μέγεθος εικόνας
+      })),
     };
   }
 
   async function getTVDetails(id) {
     const [details, credits] = await Promise.all([
-      fetchTMDB(`/tv/${id}`),
+      fetchTMDB(`/tv/${id}`, { append_to_response: 'watch/providers' }), // Προσθήκη watch/providers
       fetchTMDB(`/tv/${id}/credits`),
     ]);
+    
+    // Ψάχνουμε τις πλατφόρμες streaming (flatrate) για Ελλάδα (GR)
+    const providersGR = details['watch/providers']?.results?.GR?.flatrate || [];
+
     return {
       ...normalise({ ...details, media_type: 'tv' }),
       tagline:      details.tagline || '',
@@ -177,22 +190,15 @@ const API = (() => {
         character: p.character,
         photo:     faceUrl(p.profile_path),
       })),
+      // Προσθήκη των providers στο object
+      providers:  providersGR.map(p => ({
+        name: p.provider_name,
+        logo: posterUrl(p.logo_path, 'w92')
+      })),
     };
   }
 
-  async function getSeasonEpisodes(tvId, seasonNum) {
-    const data = await fetchTMDB(`/tv/${tvId}/season/${seasonNum}`);
-    return (data.episodes || []).map(ep => ({
-      id:       ep.id,
-      number:   ep.episode_number,
-      title:    ep.name || `Επεισόδιο ${ep.episode_number}`,
-      airDate:  ep.air_date || '',
-      overview: ep.overview || '',
-      runtime:  ep.runtime,
-      still:    ep.still_path ? posterUrl(ep.still_path, 'w300') : null,
-    }));
-  }
-
+  
   // ── Discover with filters (genre, sort) ──────────
   async function discoverMovies({ genre, sort = 'popularity.desc', page = 1 } = {}) {
     const params = { sort_by: sort, page };
