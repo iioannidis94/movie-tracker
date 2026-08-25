@@ -1,0 +1,294 @@
+/* ── OVERLAY ─────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  backdrop-filter: blur(6px);
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--t-mid);
+}
+.modal-overlay.open { opacity: 1; pointer-events: all; }
+
+/* ── MODAL BOX ───────────────────────────────────── */
+.modal {
+  position: relative;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--r-xl);
+  width: 100%;
+  max-width: 860px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-modal);
+  transform: translateY(20px);
+  transition: transform var(--t-mid);
+}
+.modal-overlay.open .modal { transform: translateY(0); }
+
+.modal-close {
+  position: sticky;
+  top: var(--sp-4);
+  float: right;
+  margin: var(--sp-4) var(--sp-4) 0 0;
+  width: 32px; height: 32px;
+  background: var(--bg-elevated);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: background var(--t-fast), color var(--t-fast);
+}
+.modal-close:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+/* ── MODAL HERO ──────────────────────────────────── */
+.modal-hero {
+  position: relative;
+  height: 300px;
+  border-radius: var(--r-xl) var(--r-xl) 0 0;
+  overflow: hidden;
+}
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center 20%;
+}
+.modal-backdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,10,15,0.2) 0%,
+    rgba(10,10,15,0.95) 100%
+  );
+}
+.modal-poster-wrap {
+  position: absolute;
+  bottom: calc(-1 * var(--sp-10));
+  left: var(--sp-8);
+  z-index: 2;
+}
+.modal-poster {
+  width: 120px;
+  border-radius: var(--r-md);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+  border: 2px solid var(--border-mid);
+}
+
+/* ── MODAL BODY ──────────────────────────────────── */
+.modal-body {
+  padding: var(--sp-12) var(--sp-8) var(--sp-8) 200px;
+}
+.modal-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-2);
+}
+.modal-tagline {
+  font-size: 14px;
+  color: var(--accent);
+  font-style: italic;
+  margin-bottom: var(--sp-4);
+}
+.modal-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-5);
+  align-items: center;
+}
+.meta-chip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.meta-chip.rating { color: var(--rating-color); font-weight: 700; }
+.meta-dot { color: var(--border-mid); }
+.modal-genres {
+  display: flex;
+  gap: var(--sp-2);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-5);
+}
+.genre-tag {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 100px;
+  border: 1px solid var(--border-mid);
+  color: var(--text-secondary);
+}
+.modal-overview {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-6);
+}
+.modal-actions {
+  display: flex;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-8);
+}
+
+/* ── SEASONS & EPISODES ──────────────────────────── */
+.seasons-section { border-top: 1px solid var(--border-subtle); padding-top: var(--sp-6); }
+.seasons-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: var(--sp-4);
+}
+.season-tabs {
+  display: flex;
+  gap: var(--sp-2);
+  overflow-x: auto;
+  padding-bottom: var(--sp-3);
+  scrollbar-width: none;
+  margin-bottom: var(--sp-4);
+}
+.season-tabs::-webkit-scrollbar { display: none; }
+.season-tab {
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 100px;
+  border: 1px solid var(--border-mid);
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition: all var(--t-fast);
+  flex-shrink: 0;
+}
+.season-tab:hover { color: var(--text-primary); }
+.season-tab.active { background: var(--accent-dim); border-color: var(--accent); color: var(--accent); }
+
+.episodes-list { display: flex; flex-direction: column; gap: var(--sp-2); }
+.episode-row {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  gap: var(--sp-4);
+  align-items: center;
+  padding: var(--sp-3) var(--sp-4);
+  border-radius: var(--r-md);
+  background: var(--bg-elevated);
+  transition: background var(--t-fast);
+}
+.episode-row:hover { background: var(--bg-hover); }
+.episode-num {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--text-muted);
+  text-align: center;
+}
+.episode-info {}
+.episode-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 2px;
+}
+.episode-air-date {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.episode-check-btn {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 2px solid var(--border-mid);
+  color: var(--text-muted);
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--t-fast);
+  flex-shrink: 0;
+}
+.episode-check-btn:hover { border-color: var(--watched-color); color: var(--watched-color); }
+.episode-check-btn.watched {
+  background: var(--watched-color);
+  border-color: var(--watched-color);
+  color: #0a0a0f;
+}
+.episodes-loading {
+  text-align: center;
+  padding: var(--sp-8) 0;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ── CAST SECTION ────────────────────────────────── */
+.cast-section { padding-top: var(--sp-6); }
+.cast-scroll {
+  display: flex;
+  gap: var(--sp-3);
+  overflow-x: auto;
+  padding-bottom: var(--sp-3);
+  scrollbar-width: none;
+}
+.cast-scroll::-webkit-scrollbar { display: none; }
+.cast-card {
+  flex-shrink: 0;
+  width: 80px;
+  text-align: center;
+}
+.cast-photo {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--bg-elevated);
+  margin: 0 auto var(--sp-2);
+  border: 2px solid var(--border-subtle);
+}
+.cast-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.cast-character {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── SECTION HEADER ──────────────────────────────── */
+.modal-section-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--sp-4);
+  margin-top: var(--sp-6);
+  padding-top: var(--sp-6);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* ── RESPONSIVE ──────────────────────────────────── */
+@media (max-width: 640px) {
+  .modal-body {
+    padding: var(--sp-5) var(--sp-5) var(--sp-5);
+    padding-top: calc(var(--sp-10) + 80px);
+  }
+  .modal-poster-wrap {
+    left: var(--sp-5);
+    bottom: auto;
+    top: calc(300px - 60px);
+  }
+  .modal-poster { width: 90px; }
+  .episode-row { grid-template-columns: 30px 1fr auto; }
+}

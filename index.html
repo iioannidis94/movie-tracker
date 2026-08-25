@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WatchVault</title>
+  <link rel="stylesheet" href="css/reset.css" />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/layout.css" />
+  <link rel="stylesheet" href="css/components.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">WatchVault</span>
+      </div>
+      <nav class="main-nav">
+        <button class="nav-btn active" data-view="discover">Ανακάλυψη</button>
+        <button class="nav-btn" data-view="watchlist">Watchlist</button>
+        <button class="nav-btn" data-view="watched">Είδα</button>
+      </nav>
+      <div class="header-actions">
+        <div class="search-wrap">
+          <input type="text" id="searchInput" class="search-input" placeholder="Αναζήτηση…" />
+          <span class="search-icon">⌕</span>
+        </div>
+        <button class="filter-btn" id="filterToggle">Φίλτρα</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- FILTER BAR -->
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-inner">
+      <div class="filter-group">
+        <label>Τύπος</label>
+        <div class="pill-group" id="typeFilter">
+          <button class="pill active" data-type="all">Όλα</button>
+          <button class="pill" data-type="movie">Ταινίες</button>
+          <button class="pill" data-type="tv">Σειρές</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Ταξινόμηση</label>
+        <select class="select-input" id="sortSelect">
+          <option value="popularity">Δημοφιλία</option>
+          <option value="rating">Βαθμολογία</option>
+          <option value="year_desc">Νεότερα</option>
+          <option value="year_asc">Παλαιότερα</option>
+          <option value="title">Αλφαβητικά</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>Είδος</label>
+        <div class="pill-group" id="genreFilter">
+          <button class="pill active" data-genre="all">Όλα</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+
+    <!-- HERO STRIP (discover only) -->
+    <section class="hero-strip" id="heroStrip">
+      <div class="hero-slide" id="heroSlide">
+        <div class="hero-bg" id="heroBg"></div>
+        <div class="hero-info" id="heroInfo"></div>
+      </div>
+      <div class="hero-dots" id="heroDots"></div>
+    </section>
+
+    <!-- GRID SECTION -->
+    <section class="grid-section">
+      <div class="section-header">
+        <h2 class="section-title" id="sectionTitle">Trending τώρα</h2>
+        <span class="result-count" id="resultCount"></span>
+      </div>
+      <div class="card-grid" id="cardGrid">
+        <div class="loading-state" id="loadingState">
+          <div class="spinner"></div>
+          <p>Φόρτωση…</p>
+        </div>
+      </div>
+      <button class="load-more-btn" id="loadMoreBtn" style="display:none">Φόρτωση περισσότερων</button>
+    </section>
+
+  </main>
+
+  <!-- MODAL OVERLAY -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modal">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- SCRIPTS (order matters) -->
+  <script src="js/config.js"></script>
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
