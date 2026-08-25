@@ -106,15 +106,34 @@ const API = (() => {
     };
   }
 
-  // ── Genres ───────────────────────────────────────
+// ── Genres ───────────────────────────────────────
   async function getGenres() {
     const [movies, tv] = await Promise.all([
       fetchTMDB('/genre/movie/list'),
       fetchTMDB('/genre/tv/list'),
     ]);
-    const map = {};
-    [...movies.genres, ...tv.genres].forEach(g => { map[g.id] = g.name; });
-    return map;
+    
+    const movieGenres = {};
+    const tvGenres = {};
+    const allGenres = {};
+
+    // Φτιάχνουμε τις λίστες ξεχωριστά
+    movies.genres.forEach(g => { 
+      movieGenres[g.id] = g.name; 
+      allGenres[g.id] = g.name;
+    });
+    
+    tv.genres.forEach(g => { 
+      tvGenres[g.id] = g.name; 
+      allGenres[g.id] = g.name;
+    });
+
+    // Επιστρέφουμε και τις 3 ομάδες
+    return {
+      movie: movieGenres,
+      tv: tvGenres,
+      all: allGenres
+    };
   }
 
   // ── Details ───────────────────────────────────────
