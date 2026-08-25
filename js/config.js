@@ -10,8 +10,8 @@
 const CONFIG = {
 
   // ── TMDB ──────────────────────────────────────────
-  TMDB_API_KEY:  'e57a4ef6bc85d0408c926e152f3269bb',   // ← αντικατέστησε
-  TMDB_BASE_URL: 'https://api.themoviedb.org/3',
+  TMDB_API_KEY: typeof TMDB_KEY !== 'undefined' ? TMDB_KEY : '',
+   TMDB_BASE_URL: 'https://api.themoviedb.org/3',
   TMDB_IMAGE_BASE: 'https://image.tmdb.org/t/p/',
 
   // Poster / Backdrop sizes (TMDB standard)
