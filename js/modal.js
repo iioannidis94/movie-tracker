@@ -52,10 +52,20 @@ const Modal = (() => {
     if (e.key === 'Escape') close();
   });
 
-  // ── Movie render ──────────────────────────────────
+ // ── Movie render ──────────────────────────────────
   function renderMovie(d) {
     const watched   = Storage.isWatched('movie', d.id);
     const inWatchlist = Storage.isInWatchlist('movie', d.id);
+
+    // ΝΕΟΣ ΚΩΔΙΚΑΣ: HTML για τους Watch Providers (Ταινίες)
+    const providersHTML = (d.providers && d.providers.length > 0) ? `
+      <div class="providers-section" style="margin-bottom: 16px;">
+        <div class="providers-label" style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Διαθεσιμο στο (Ελλαδα):</div>
+        <div class="providers-list" style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${d.providers.map(p => `<img src="${p.logo}" alt="${p.name}" title="${p.name}" style="width:36px;height:36px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);" />`).join('')}
+        </div>
+      </div>
+    ` : '';
 
     content.innerHTML = `
       ${heroHTML(d)}
@@ -69,6 +79,9 @@ const Modal = (() => {
         </div>
         ${d.genres.length ? `<div class="modal-genres">${d.genres.map(g =>
           `<span class="genre-tag">${UI.esc(g.name)}</span>`).join('')}</div>` : ''}
+        
+        ${providersHTML} <!-- Προσθήκη των providers εδώ -->
+
         <p class="modal-overview">${UI.esc(d.overview)}</p>
         <div class="modal-actions" id="movieActions">
           <button class="btn ${watched ? 'btn-danger' : 'btn-primary'} action-watched"
@@ -87,11 +100,21 @@ const Modal = (() => {
     bindActionButtons(content, 'movie', d.id);
   }
 
-  // ── TV render ─────────────────────────────────────
+// ── TV render ─────────────────────────────────────
   function renderTV(d) {
     const watched   = Storage.isWatched('tv', d.id);
     const inWatchlist = Storage.isInWatchlist('tv', d.id);
     const epCount   = Storage.getWatchedEpisodesForShow(d.id).length;
+
+    // ΝΕΟΣ ΚΩΔΙΚΑΣ: HTML για τους Watch Providers (Σειρές)
+    const providersHTML = (d.providers && d.providers.length > 0) ? `
+      <div class="providers-section" style="margin-bottom: 16px;">
+        <div class="providers-label" style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Διαθεσιμο στο (Ελλαδα):</div>
+        <div class="providers-list" style="display:flex;gap:8px;flex-wrap:wrap;">
+          ${d.providers.map(p => `<img src="${p.logo}" alt="${p.name}" title="${p.name}" style="width:36px;height:36px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);" />`).join('')}
+        </div>
+      </div>
+    ` : '';
 
     content.innerHTML = `
       ${heroHTML(d)}
@@ -107,6 +130,9 @@ const Modal = (() => {
         </div>
         ${d.genres.length ? `<div class="modal-genres">${d.genres.map(g =>
           `<span class="genre-tag">${UI.esc(g.name)}</span>`).join('')}</div>` : ''}
+        
+        ${providersHTML} <!-- Προσθήκη των providers εδώ -->
+
         <p class="modal-overview">${UI.esc(d.overview)}</p>
         <div class="modal-actions" id="tvActions">
           <button class="btn ${watched ? 'btn-danger' : 'btn-primary'} action-watched"
@@ -144,6 +170,7 @@ const Modal = (() => {
       });
     }
   }
+  
 
   // ── Hero HTML ─────────────────────────────────────
   function heroHTML(d) {
