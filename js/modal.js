@@ -57,12 +57,12 @@ const Modal = (() => {
     const watched   = Storage.isWatched('movie', d.id);
     const inWatchlist = Storage.isInWatchlist('movie', d.id);
 
-    // ΝΕΟΣ ΚΩΔΙΚΑΣ: HTML για τους Watch Providers (Ταινίες)
+ // ΝΕΟΣ ΚΑΘΑΡΟΣ ΚΩΔΙΚΑΣ: HTML για τους Watch Providers
     const providersHTML = (d.providers && d.providers.length > 0) ? `
-      <div class="providers-section" style="margin-bottom: 16px;">
-        <div class="providers-label" style="font-size:11px;font-weight:600;text-transform:uppercase;color:var(--text-muted);margin-bottom:8px;">Διαθεσιμο στο (Ελλαδα):</div>
-        <div class="providers-list" style="display:flex;gap:8px;flex-wrap:wrap;">
-          ${d.providers.map(p => `<img src="${p.logo}" alt="${p.name}" title="${p.name}" style="width:36px;height:36px;border-radius:var(--r-sm);border:1px solid var(--border-subtle);" />`).join('')}
+      <div class="providers-section">
+        <div class="providers-label">Διαθεσιμο στο (Ελλαδα):</div>
+        <div class="providers-list">
+          ${d.providers.map(p => `<img src="${p.logo}" alt="${p.name}" title="${p.name}" class="provider-logo" />`).join('')}
         </div>
       </div>
     ` : '';
