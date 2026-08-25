@@ -27,7 +27,7 @@ const App = (() => {
     title:      'original_title.asc',
   };
 
-  // ── Init ──────────────────────────────────────────
+ // ── Init ──────────────────────────────────────────
   async function init() {
     setupNavigation();
     setupSearch();
@@ -36,7 +36,8 @@ const App = (() => {
 
     try {
       state.genreMap = await API.getGenres();
-      UI.buildGenrePills(state.genreMap);
+      // ΑΛΛΑΓΗ ΕΔΩ: Ζητάμε το state.genreMap.all αντί για σκέτο state.genreMap
+      UI.buildGenrePills(state.genreMap.all);
       setupGenreFilter();
     } catch {}
 
@@ -84,13 +85,34 @@ const App = (() => {
       btn.classList.toggle('open');
     });
 
-    // Type pills
+  // Type pills
     document.getElementById('typeFilter').addEventListener('click', (e) => {
       const pill = e.target.closest('.pill');
       if (!pill) return;
+      
       document.querySelectorAll('#typeFilter .pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
+      
       state.typeFilter = pill.dataset.type;
+      
+      // ΝΕΟΣ ΚΩΔΙΚΑΣ: Ανανέωση των κατηγοριών με βάση το νέο τύπο
+      const currentGenres = state.genreMap[state.typeFilter];
+      UI.buildGenrePills(currentGenres);
+      
+      // Αν το είδος που είχαμε επιλέξει πριν δεν υποστηρίζεται στη νέα λίστα (π.χ. Τρόμου στις σειρές), το κάνουμε reset σε 'all'
+      if (state.genre !== 'all' && !currentGenres[state.genre]) {
+         state.genre = 'all';
+      } else if (state.genre !== 'all') {
+         // Αν το είδος υποστηρίζεται ακόμα (π.χ. Δράση), το κάνουμε ξανά visually active
+         setTimeout(() => {
+           const activePill = document.querySelector(`#genreFilter .pill[data-genre="${state.genre}"]`);
+           if (activePill) {
+             document.querySelectorAll('#genreFilter .pill').forEach(p => p.classList.remove('active'));
+             activePill.classList.add('active');
+           }
+         }, 0);
+      }
+      
       state.page = 1;
       loadView();
     });
