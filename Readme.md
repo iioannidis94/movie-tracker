@@ -3,25 +3,6 @@
 Offline-capable web app για να παρακολουθείς ταινίες & σειρές.  
 Δεδομένα από **TMDB API** (δωρεάν). Χωρίς backend — όλα στο browser.
 
----
-
-## 🚀 Setup (5 λεπτά)
-
-### 1. Πάρε δωρεάν API Key
-1. Πήγαινε στο [themoviedb.org](https://www.themoviedb.org/) → Εγγραφή
-2. **Settings → API → Create** (επίλεξε "Developer")
-3. Αντίγραψε το **API Key (v3 auth)**
-
-### 2. Βάλε το key στην εφαρμογή
-Άνοιξε `js/config.js` και αντικατέστησε:
-```js
-TMDB_API_KEY: 'ΔΩΣ_ΤΟ_ΚΛΕΙΔΙ_ΣΟΥ_ΕΔΩ',
-```
-με το δικό σου κλειδί.
-
-### 3. Τρέξε
-Άνοιξε `index.html` σε browser.  
-> Για local development χωρίς CORS issues: `npx serve .` ή Live Server στο VS Code.
 
 ---
 
